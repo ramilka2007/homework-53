@@ -1,6 +1,8 @@
 import './App.css'
 import {useState} from "react";
 import Task from "./Task/Task";
+import {Tasks} from "./types";
+import AddTaskForm from "./AddTaskForm/AddTaskForm";
 
 const App = () => {
     const [tasks, setTasks] = useState([
@@ -15,12 +17,15 @@ const App = () => {
         });
     };
 
+    const createTask = (newTask: Tasks) => {
+        setTasks((prevTasks) => {
+            return [...prevTasks, newTask];
+        });
+    };
+
   return (
       <div className="app">
-          <form>
-              <input type="text"/>
-              <button type={"submit"}>Add</button>
-          </form>
+          <AddTaskForm onSubmit={createTask}/>
           {tasks.map((task) => (
               <Task key={task.id}
                     taskName={task.taskName}
